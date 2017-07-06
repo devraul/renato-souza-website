@@ -1,0 +1,10 @@
+.message__social{
+	display: flex;
+	justify-content: center;
+	padding: 1rem 0 0 .3125rem;
+}
+.message__social__link .fa{
+	display: inline-block;
+	padding: .3125rem 1.25rem 0 0;
+	color: var(--text-color);
+}

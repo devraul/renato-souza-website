@@ -1,0 +1,26 @@
+doctype html
+html(lang='en')
+	head
+		meta(name="viewport" content="width=device-width, initial-scale=1.0")
+
+		//- SEO
+		title Renato Souza - Designer
+		block meta-seo
+		meta(name="author" content="Renato Souza")
+		meta(name="robots" content="index,nofollow")
+
+		//- Icon
+		link(rel="icon" type="img/png", href="img/favicon.ico", sizes="16x16")
+
+		//- Imports CSS
+		link(href=assets['index.min.css'] rel="stylesheet")
+		block styles
+
+		//-- Imports JS
+		block scripts-header
+		body
+			//[if lt IE 9]<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>[endif]
+
+			block analytics
+
+			block content

@@ -1,0 +1,8 @@
+@import './_message-logo.css';
+@import './_message-text.css';
+@import './_message-social.css';
+.message {
+	background-color: transparent;
+	padding: 1rem;
+	--text-color: #fff;
+}

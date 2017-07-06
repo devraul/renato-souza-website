@@ -1,0 +1,9 @@
+.message__text__paragraph{
+	color: var(--text-color);
+	font-family: 'Raleway',sans-serif;
+	text-align: center;
+	margin: .3125rem 0 .625rem 0;
+	font-size: 1.125rem;
+	font-weight: 700;
+	text-rendering: optimizeLegibility;
+}
