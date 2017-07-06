@@ -3,6 +3,7 @@ const clean = require('gulp-clean')
 const concat = require('gulp-concat')
 const cssnano = require('gulp-cssnano')
 const data = require('gulp-data')
+const ghPages = require('gulp-gh-pages')
 const gulp = require('gulp')
 const imagemin = require('gulp-imagemin')
 const jsmin = require('gulp-jsmin')
@@ -63,6 +64,10 @@ gulp.task('image', () => {
 		.pipe(gulp.dest(DEST_FOLDER + 'img/'))
 })
 
+gulp.task('deploy', () => {
+	return gulp.src('./dist/**/*')
+		.pipe(ghPages())
+})
 
 gulp.task('pug', () => {
 	return gulp.src('src/index.pug')
