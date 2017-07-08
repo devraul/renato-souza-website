@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"main": "index.js",
 	"scripts": {
-		"deploy": "concurrently 'yarn build' 'yarn gulp deploy'",
+		"deploy": "PRD=true yarn build && yarn gulp deploy",
 		"build": "yarn gulp build",
 		"start": "yarn lite-server",
 		"watch": "yarn gulp watch"

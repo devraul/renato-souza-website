@@ -1,0 +1,31 @@
+.icon-behance,
+.icon-email,
+.icon-facebook,
+.icon-linkedin,
+.icon-whatsapp {
+	background-size: 2rem;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.icon-behance {
+	background-image: url('img/icons/behance.svg');
+}
+
+.icon-email {
+	background-image: url('img/icons/email.svg');
+}
+
+.icon-facebook {
+	background-image: url('img/icons/facebook.svg');
+	background-size: 1rem;
+}
+
+.icon-linkedin {
+	background-image: url('img/icons/facebook.svg');
+}
+
+.icon-whatsapp {
+	background-image: url('img/icons/whatsapp.svg');
+}
+

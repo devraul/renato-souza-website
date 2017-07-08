@@ -3,8 +3,12 @@
 	justify-content: center;
 	padding: 1rem 0 0 .3125rem;
 }
-.message__social__link .fa{
+.message__social__item{
+	margin-right: 1rem;
+}
+.message__social__link{
 	display: inline-block;
-	padding: .3125rem 1.25rem 0 0;
-	color: var(--text-color);
+	height: 2rem;
+	width: 2rem;
+	vertical-align: middle;
 }

@@ -9,6 +9,7 @@ const imagemin = require('gulp-imagemin')
 const jsmin = require('gulp-jsmin')
 const postcss = require('gulp-postcss')
 const postImport = require('postcss-import')
+const path = require('path')
 const pug = require('gulp-pug')
 const rename = require('gulp-rename')
 const revision = require('gulp-rev')
@@ -19,15 +20,19 @@ const DEST_FOLDER = 'dist/'
 
 const MANIFEST_CONFIG = {
 	merge: true,
-	manifestName: 'rev-manifest.json',
-	manifestPath: 'src/data/'
+	dir: 'src/data/',
+	fullPath: path.join(__dirname, 'src/data/', 'rev-manifest.json')
 }
 
-gulp.task('build', ['clean'], callback =>
-	sequence(['css', 'image', 'copy-files'], 'revision', 'pug')(callback)
-)
+gulp.task('build', ['clean'], callback => {
+	let revTask = ''
+	if (process.env.PRD)
+		revTask = 'revision'
 
-gulp.task('clean', () => {
+	sequence(['css', 'image', 'copy-files'], revTask, 'pug')(callback)
+})
+
+gulp.task('clean', ['deleteManifest'], () => {
 	return gulp.src(DEST_FOLDER)
 		.pipe(clean())
 })
@@ -49,19 +54,23 @@ gulp.task('css', () => {
 
 gulp.task('image', () => {
 	const CONFIG = {
-		progressive: true
+		interlaced: true,
+		progressive: true,
+		optimizationLevel: 5,
+		svgoPlugins: [{
+			removeViewBox: true
+		}]
 	}
 
 	return gulp.src('src/img/**/*')
-		.pipe(imagemin({
-			interlaced: true,
-			progressive: true,
-			optimizationLevel: 5,
-			svgoPlugins: [{
-				removeViewBox: true
-			}]
-		}))
+		.pipe(imagemin(CONFIG))
 		.pipe(gulp.dest(DEST_FOLDER + 'img/'))
+})
+
+gulp.task('deleteManifest', () => {
+
+	return gulp.src(MANIFEST_CONFIG.fullPath)
+		.pipe(clean())
 })
 
 gulp.task('deploy', () => {
@@ -72,9 +81,13 @@ gulp.task('deploy', () => {
 gulp.task('pug', () => {
 	return gulp.src('src/index.pug')
 		.pipe(data(() => {
-			return {
-				assets: require('./src/data/rev-manifest.json')
+			let result = {}
+			try {
+				result.assets = require('./src/data/rev-manifest.json')
+			} finally {
+				return result
 			}
+
 		}))
 		.pipe(pug({}))
 		.pipe(gulp.dest(DEST_FOLDER))
@@ -86,7 +99,7 @@ gulp.task('revision', () => {
 		.pipe(gulp.dest('dist/'))
 		.pipe(revDelete())
 		.pipe(revision.manifest(MANIFEST_CONFIG))
-		.pipe(gulp.dest(MANIFEST_CONFIG.manifestPath))
+		.pipe(gulp.dest(MANIFEST_CONFIG.dir))
 })
 
 
